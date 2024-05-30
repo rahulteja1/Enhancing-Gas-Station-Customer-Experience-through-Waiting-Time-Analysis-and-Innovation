@@ -1,0 +1,51 @@
+Gas_station,No_pumps,Car_type,Date,Day,In_time,Out_time,Waiting_time
+Walmart krist,8,Pickup Truck,"Mar 15, 2024",Friday,16:06,16:13,7
+Walmart krist,8,Sedan,"Mar 15, 2024",Friday,16:09,16:15,6
+Walmart krist,8,Pickup Truck,"Mar 15, 2024",Friday,16:01,16:13,12
+Walmart krist,8,Suv,"Mar 15, 2024",Friday,16:01,16:16,15
+Walmart krist,8,Pickup Truck,"Mar 15, 2024",Friday,16:11,16:16,5
+Walmart krist,8,Sedan,"Apr 10, 2024",Wednesday,16:18,16:21,3
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:18,16:23,5
+Walmart krist,8,Sedan,"April 10, 2024",Wednesday,16:19,16:25,6
+Walmart krist,8,SUV,"April 10, 2024",Wednesday,16:21,16:25,4
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:22,16:26,4
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:30,16:35,5
+Walmart krist,8,SUV,"April 10, 2024",Wednesday,16:31,16:34,3
+Walmart krist,8,SUV,"April 10, 2024",Wednesday,16:33,16:36,3
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:41,16:45,4
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:45,16:51,6
+Walmart krist,8,SUV,"April 10, 2024",Wednesday,16:44,16:47,3
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:48,16:53,5
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:24,16:28,4
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:27,16:33,6
+Walmart krist,8,SUV,"April 10, 2024",Wednesday,16:27,16:31,4
+Walmart krist,8,SUV,"April 10, 2024",Wednesday,16:30,16:34,4
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:33,16:40,7
+Walmart krist,8,Suv,"April 10, 2024",Wednesday,16:31,16:36,5
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:36,16:39,3
+Walmart krist,8,Sedan,"April 10, 2024",Wednesday,16:41,16:45,4
+Walmart krist,8,Sedan,"April 10, 2024",Wednesday,16:42,16:45,3
+Walmart krist,8,Sedan,"April 10, 2024",Wednesday,16:42,16:44,2
+Walmart krist,8,Pickup Truck,"April 10, 2024",Wednesday,16:46,16:52,6
+Walmart krist,8,Sedan,"April 10, 2024",Wednesday,16:49,16:52,3
+Walmart krist,8,Sedan,"April 10, 2024",Wednesday,16:50,16:52,2
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,15:29,15:36,7
+Downtown krist,4,Sedan,"April 18, 2024",Thursday,15:29,15:30,1
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,15:33,15:37,4
+Downtown krist,4,SUV,"April 18, 2024",Thursday,15:34,15:34,0
+Downtown krist,4,SUV,"April 18, 2024",Thursday,15:36,15:41,5
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,15:40,15:45,5
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,15:34,16:22,48
+Downtown krist,4,Suv,"April 18, 2024",Thursday,15:54,15:55,1
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,15:54,15:57,3
+Downtown krist,4,Suv,"April 18, 2024",Thursday,15:54,15:56,2
+Downtown krist,4,Suv,"April 18, 2024",Thursday,16:00,16:03,3
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,16:01,16:05,4
+Downtown krist,4,Suv,"April 18, 2024",Thursday,16:02,16:08,6
+Downtown krist,4,Suv,"April 18, 2024",Thursday,16:07,16:09,2
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,16:07,16:16,9
+Downtown krist,4,Suv,"April 18, 2024",Thursday,16:11,16:13,2
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,16:14,16:18,4
+Downtown krist,4,Pickup truck,"April 18, 2024",Thursday,16:17,16:22,5
+Downtown krist,4,Suv,"April 18, 2024",Thursday,16:21,16:25,4
+Downtown krist,4,Suv,"April 18, 2024",Thursday,16:24,16:27,3

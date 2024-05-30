@@ -1,0 +1,348 @@
+---
+title: Enhancing Gas Station Customer Experience through Waiting Time Analysis and
+  Innovation
+author: "Houghton Queue Monitors" 
+date: "Rahul Teja Bolloju, Mahidhar Manda "
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# INTRODUCTION
+## Two-way ANOVA test
+Gas stations play a crucial role in facilitating refueling needs for drivers. One key aspect of customer satisfaction at gas stations is minimizing waiting time. In this project, we propose to investigate the average waiting time for customers at various gas stations and explore the impact of potential innovations aimed at reducing this waiting time.
+
+
+## Data Description
+We have collected data on customer waiting times from multiple gas stations across different locations in Houghton. At the gas station dataset contains, categorical variables include "Gas_station" for the names of stations where waiting times are logged, "Car_type" indicating vehicle types, and "Day" specifying the recording day of the week. Numerical variables consist of "No_pumps" representing total gas pumps, "In_time" denoting vehicle entry time, and "Out_time" indicating vehicle exit time.
+
+
+### Independent Variables (Factors):
+In a two-way ANOVA, there are two independent variables, each with two or more levels or categories. For example, in our case study two independent variables are type of car and gas station. how this variable are effecting the waiting time of a customer.
+
+  -   Gas_station
+  
+  -   Car_type
+
+### Dependent Variable: 
+This is the variable that is being measured or observed and is expected to change based on the independent variables. It is continuous in nature, such Waiting time.
+
+  -   Waiting_time
+
+
+
+# METHODS
+In this study, the population of interest comprises customers visiting gas stations, and the observational unit is each individual customer. This research employed an observational study design rather than a controlled experiment.
+
+The sample collection process involved gathering data on waiting times from various gas stations. To obtain a representative sample, efforts were made to ensure random sampling. Data collection included recording waiting times and categorizing them by gas station, car type, and other relevant factors.
+
+We employed random sampling because we have conducted our study on the gas stations only in Houghton area. This approach aimed to minimize bias and increase the generalizability of findings to the broader population of gas station customers in the area.
+
+Variables measured in this study included:
+- **Gas_station:** Categorical variable indicating the gas station where the observation was made.
+- **Car_type:** Categorical variable representing the type of car each customer arrived in.
+- **Waiting_time:** Continuous variable denoting the time each customer spent waiting.
+
+Data cleaning involved removing outliers, such as extreme waiting times due to unusual circumstances like customers having meals in their cars. This process aimed to ensure the integrity of the dataset for analysis.
+
+The methodology focused on capturing real-world observations of waiting times at gas stations, considering factors such as gas station location and customer car type. This comprehensive approach facilitated an in-depth analysis of waiting time dynamics and their potential influences.
+
+# RESULTS
+## Statistical Analysis: 
+### Two-way ANOVA test hypotheses
+A two-way ANOVA test as a comprehensive tool in statistics that delves into the effects of two categorical independent variables on a continuous dependent variable. It's like examining the combined influence of two factors on the average outcome, while also segregation how these factors might interact and influence each other's impact. This analysis provides a clear understanding of how various factors contribute to the variability observed in the dependent variable, offering valuable insights for decision-making and further research.
+
+#### Null Hypotheses (H0):
+- H01: There is no significant difference in waiting times across different gas stations.
+- H02: There is no significant difference in waiting times among different car types.
+- H03: There is no significant interaction effect between gas station and car type on waiting times.
+
+#### Alternative Hypotheses (Ha):
+- Ha1: There is a significant difference in waiting times across different gas stations.
+- Ha2: There is a significant difference in waiting times among different car types.
+- Ha3: There is a significant interaction effect between gas station and car type on waiting times.
+
+
+
+### Assumptions of two-way ANOVA test
+Two-way ANOVA, similar to other ANOVA tests, relies on the assumption that the data within each group are normally distributed and have equal variances. We'll demonstrate how to verify these assumptions after performing the ANOVA analysis.
+
+### Compute two-way ANOVA test in R:
+
+#### Import your data into R
+```{r}
+# data <- read.csv("//homes.mtu.edu/home/Downloads/Gas_station_data.csv")
+data <- read.csv("/Users/rahulteja/Library/Mobile Documents/com~apple~CloudDocs/Desktop/COURSE/sem 4/MA 5701 Stastical Methods/project/Gas_station_data.csv")
+data$Car_type <- tolower(data$Car_type)
+head(data)
+```
+
+
+
+#### Visualizing the data
+
+Boxplot
+```{r}
+library(ggplot2)
+ggplot(data, aes(x = Gas_station, y = Waiting_time, fill = Gas_station)) +
+  geom_boxplot() +
+  labs(title = "Waiting Time at Gas Stations",
+       x = "Gas Station \n (Figure 1)",
+       y = "Waiting Time (minutes)",
+       fill = "Gas Station")
+```
+
+We can observe in the Figure 1 there is one outlier in the downtown gas station. While collecting the data we have observe that this outlier has happened due to a customer was having his lunch and waiting in the car. 
+
+We are also removing the outliers in the Walmart krist
+
+```{r}
+df <- data[data$Waiting_time <= 10, ]
+head(df)
+```
+
+```{r}
+ggplot(df, aes(x = Gas_station, y = Waiting_time, fill = Gas_station)) +
+  geom_boxplot() +
+  labs(title = "Waiting Time at Gas Stations",
+       x = "Gas Station \n (Figure 2)",
+       y = "Waiting Time (minutes)",
+       fill = "Gas Station")
+```
+
+From the Figure 2 box plot, we can observe that both the box plots have almost same mean values.
+
+Bar plot observe the distribution between the variables. 
+```{r}
+avg_waiting <- tapply(df$Waiting_time, df$Gas_station, mean)
+
+avg_waiting_df <- data.frame(
+  gas_station = names(avg_waiting),
+  avg_waiting_time = avg_waiting
+)
+
+ggplot(avg_waiting_df, aes(x = gas_station, y = avg_waiting_time)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Average Waiting Time at Gas Stations",
+       x = "Gas Station \n (Figure 3)",
+       y = "Average Waiting Time (minutes)") +
+  geom_text(aes(label = round(avg_waiting_time, 2)), vjust = -0.5, size = 3.5)
+
+
+```
+
+Looking at Figure 3, we see that the average price at the Walmart gas station is higher than at the Downtown gas station, but not by much.
+
+
+
+car types in the dataframe
+```{r}
+unique(df$Car_type)
+```
+Based on the collected data we have got "pickup truck", "sedan", and "suv". 
+
+we are plotting Bar plot to observe the waiting time of different type of cars in the car type. 
+```{r}
+Car_avg_waiting <- tapply(df$Waiting_time, df$Car_type, mean)
+
+Car_avg_waiting_df <- data.frame(
+  car_type = names(Car_avg_waiting),
+  avg_waiting_time = Car_avg_waiting)
+
+
+ggplot(Car_avg_waiting_df, aes(x = car_type, y = avg_waiting_time)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Average Waiting Time at Gas Stations",
+       x = "Gas Station \n (Figure 4)",
+       y = "Average Waiting Time (minutes)") +
+  geom_text(aes(label = round(avg_waiting_time, 2)), vjust = -0.5, size = 3.5)
+```
+From the Figure 4, we can observe that the average waiting time for the Pickup truck is higher than the Sedan and SUV.
+
+
+Interaction plot
+```{r}
+library("ggpubr")
+ggline(df, x = "Car_type", y = "Waiting_time", color = "Gas_station",
+       add = c("mean_se", "dotplot"),
+       palette = c("#00AFBB", "#E7B800"),
+       main = "Waiting Time by Car Type",
+       xlab = "Car Type \n (Figure 5)")
+
+```
+
+In the above interaction plot (Figure 5) we can observe that the waiting time of pickup truck is almost same around 5 minutes in the both the gas stations. Where as the average waiting time of sedan in Downtown krist is very less, and from above plot we can clearly say that there is no interaction. Coming to SUV type the mean waiting for both the gas station there is a slight variation.
+
+
+
+
+
+## Compute two-way ANOVA test
+The R function aov() can be used to answer this question. The function summary.aov() is used to summarize the analysis of variance model.
+```{r}
+anova_result <- aov(Waiting_time ~ Gas_station + Car_type, data = df)
+summary(anova_result)
+```
+From the ANOVA table we can conclude that Car_type is statistically significant. These results would lead us to believe that Car_type has a significant effect on Waiting_time of a Gas_station. 
+
+
+### Two-way ANOVA with interaction effect
+```{r}
+# anova_result_interaction <- aov(Waiting_time ~ Gas_station * Car_type, data = df)
+anova_result_interaction <- aov(Waiting_time ~ Gas_station + Car_type + Gas_station:Car_type, data = df)
+summary(anova_result_interaction)
+```
+Since the p-value for the interaction (Gas_station:Car_type) is 0.307057 which is greater than significant level (0.05). We can conclude there is no significant interaction effect between gas station and car type on waiting times. Hence we failed to reject Null Hypothesis. 
+
+
+### Interaction Effect: 
+This is the combined effect of the two independent variables on the dependent variable. It tells you whether the effect of one independent variable depends on the level of the other independent variable. In other words, it examines whether the effect of one factor varies across different levels of the other factor.
+
+
+
+## Pair Wise Analysus 
+
+### Multiple pairwise-comparison between the means of groups
+In an ANOVA test, a low p-value means that there's a difference in averages between some groups, but we're not sure which ones. To find out, we can compare pairs of groups to see if their average differences are actually meaningful.
+
+### Tukey multiple pairwise-comparisons
+The ANOVA test shows significance, we can use Tukey HSD (Tukey Honest Significant Differences, which is done with the R function: TukeyHSD()) to compare the means of different groups in multiple pairwise comparisons. To do this, we pass the fitted ANOVA as an argument to the TukeyHSD() function.
+```{r}
+TukeyHSD(anova_result_interaction, which = "Gas_station:Car_type")
+```
+By observing the above Tukey multiple comparisons of means we can clearly observe that there is no significant difference between the mean values of the groups because all groups p-values are grater than significant level (0.05), which states that there is no statistical significance between the groups. Hence we clearly say that all pairs comes under a single group. 
+
+
+## Check ANOVA assumptions: test validity?
+ANOVA assumes that the data are normally distributed and the variance across groups are homogeneous. We can check that with some diagnostic plots.
+
+
+### Check the homogeneity of variance assumption
+Residuals vs Fitted
+```{r}
+plot(anova_result, 1)
+```
+
+In Figure 6 (Residuals vs Fitted), R identified points 43, 34, and 45 as outliers. Apart from those, we observe a straight line with data points scattered randomly around it, indicating that the assumption of equal variance (homoscedasticity) is met here.
+
+
+### Check the normality assumpttion
+Q-Q Residuals: 
+```{r}
+plot(anova_result, 2)
+```
+In Figure 7 (Q-Q Residuals), R automatically marked the three data points with significant residuals (observations 34, 43, and 45). Besides these points, the observations mostly align closely with the 45-degree line in the QQ-plot, suggesting that normality is likely maintained.
+
+
+#Conclusion:
+<!-- Over all we can say that there is no significant difference between the mean wait time of the gas station, as well as ther is no interaction effect between the gas station and the car type. From that we can say that the is no need of innovating the gas station for decreasing the wait time. Moreover, the Car_type is influencing the mean waiting of a customer which cannot be handled by us for reducing the waiting time at the gas station. In addition to this if there are any improvement to be done, store purchasing time should be decreased by making more convenient for the customer at the gas station   -->
+
+In our analysis of gas station waiting times, we conducted a thorough observation into the influences of both location and vehicle type on customer waiting time. Through statistical methodologies like two-way ANOVA tests and pairwise comparisons, we uncovered significant trends. Notably, we found that the type of vehicle had a significant impact, with pickup trucks often facing longer waits compared to sedans and SUVs. This discovery emphasizes the importance of tailoring management strategies to efficiently accommodate larger vehicles, particularly during peak periods of demand.
+
+While our analysis revealed variations in average waiting times across different gas station locations, we did not identify any significant interaction effects between station location and vehicle type on waiting times. This suggests a consistent influence of vehicle type on waiting duration irrespective of station location. However, it also underscores the need for further exploration into other potential factors affecting waiting times, such as staffing levels or operational procedures. Our study's observational approach provided valuable real-world insights from gas stations in Houghton, but future research could benefit from investigating additional variables and expanding the study's geographic reach for more comprehensive insights applicable to gas station management practices in diverse regions.
+
+
+
+# References
+```{}
+http://www.sthda.com/english/wiki/two-way-anova-test-in-r#what-is-two-way-anova-test
+https://www.investopedia.com/terms/a/anova.asp
+https://ademos.people.uic.edu/Chapter12.html
+https://www.scribbr.com/statistics/anova-in-r/
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
